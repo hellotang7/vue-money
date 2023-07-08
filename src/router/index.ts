@@ -4,6 +4,7 @@ import Hello from '../components/HelloWorld.vue';
 import Money from '@/views/Money.vue';
 import Labels from '@/views/Labels.vue';
 import Statistics from '@/views/Statistics.vue';
+import NotFound from '@/views/NotFound.vue';
 
 Vue.use(VueRouter);
 
@@ -24,7 +25,11 @@ const routes: Array<RouteConfig> = [
     }, {
         path: '/hello',
         component: Hello
-    },
+    },{
+        // 会匹配所有路径
+        path: '*',
+        component:NotFound
+    }
 
 ];
 
