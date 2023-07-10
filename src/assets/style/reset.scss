@@ -5,4 +5,20 @@
   box-sizing: border-box;
 }
 
+a {
+  text-decoration: none;
+  color: gray;
+}
 
+ol,ul{
+  list-style: none;
+}
+
+button,input{
+  font: inherit;
+}
+
+
+:focus{
+  outline: none;
+}

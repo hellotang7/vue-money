@@ -41,7 +41,7 @@
   @import "~@/assets/style/TextColor.scss";
   nav {
     display: flex;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+@extend %outerShow;
     //flex-direction: row;
     font-size: 12px;
     //border: 1px solid red;

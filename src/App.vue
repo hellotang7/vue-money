@@ -19,12 +19,10 @@
     color: #333;
     line-height: 1.5;
     font-family: $fon-hei;
+    font-size: 16px;
   }
 
-  a {
-    text-decoration: none;
-    color: gray;
-  }
+
 
   .icon {
     width: 1em;
