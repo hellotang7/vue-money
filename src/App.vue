@@ -10,20 +10,27 @@
 
 </script>
 <style lang="scss">
-*{
-  margin: 0;padding: 0;box-sizing:border-box;
-}
-body{
-  line-height: 1.5;
-}
-a{
-  text-decoration: none;
-  color: gray;
-}
-.icon {
-  width: 1em; height: 1em;
-  vertical-align: -0.15em;
-  fill: currentColor;
-  overflow: hidden;
-}
+  @import "~@/assets/style/reset.scss";
+  @import "~@/assets/style/TextColor.scss";
+
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #333;
+    line-height: 1.5;
+    font-family: $fon-hei;
+  }
+
+  a {
+    text-decoration: none;
+    color: gray;
+  }
+
+  .icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+  }
 </style>

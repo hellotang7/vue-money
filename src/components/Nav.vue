@@ -38,8 +38,7 @@
 </script>
 
 <style lang="scss" scoped>
-
-
+  @import "~@/assets/style/TextColor.scss";
   nav {
     display: flex;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
@@ -61,7 +60,7 @@
       }
     }
     .x {
-      color: #42b983;
+      color: $color-hightlight;
     }
   }
 </style>
