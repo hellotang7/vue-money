@@ -6,9 +6,9 @@
 
             <Notes/>
 
-            <Tags xxx="hi"/>
+            <Tags/>
 
-            <Types/>
+            <Types :xxx="666"/>
 
         </Layout>
     </div>

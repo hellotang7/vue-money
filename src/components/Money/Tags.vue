@@ -24,7 +24,7 @@
                 <svg class="icon">
                     <use xlink:href="#bus"/>
                 </svg>
-                <sapn>交通</sapn>
+                <span>交通</span>
             </li>
 
             <li>
@@ -69,6 +69,45 @@
                 </svg>
                 <span>添加</span>
             </li>
+            <li>
+                <svg class="icon">
+                    <use xlink:href="#add"/>
+                </svg>
+                <span>添加</span>
+            </li>
+            <li>
+                <svg class="icon">
+                    <use xlink:href="#add"/>
+                </svg>
+                <span>添加</span>
+            </li>
+
+            <li>
+                <svg class="icon">
+                    <use xlink:href="#add"/>
+                </svg>
+                <span>添加</span>
+            </li>
+            <li>
+                <svg class="icon">
+                    <use xlink:href="#add"/>
+                </svg>
+                <span>添加</span>
+            </li>
+
+            <li>
+                <svg class="icon">
+                    <use xlink:href="#add"/>
+                </svg>
+                <span>添加</span>
+            </li>
+            <li>
+                <svg class="icon">
+                    <use xlink:href="#add"/>
+                </svg>
+                <span>添加</span>
+            </li>
+
         </ul>
     </div>
 </template>
@@ -82,38 +121,37 @@
     flex-grow: 1;
     padding: 16px;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
+    overflow-y: auto;
+
 
     ul {
 
       display: flex;
       text-align: center;
-      white-space: nowrap;
-      overflow-x: scroll;
-      overflow-y: hidden;
-    }
+      flex-wrap: wrap;
 
-    li {
-      margin: 0 12px;
-      width: 90px;
-      //height: 100px;
-      padding: 12px 0;
-      font-size: 12px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      white-space: nowrap;
 
-      .icon {
-        background: #f5f5f5;
-        width: 34px;
-        height: 34px;
-        border-radius: 50%;
-        margin-bottom: 5px;
+      li {
+        width: 25%;
+        padding: 8px 0;
+        font-size: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .icon {
+          background: #f5f5f5;
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          margin-bottom: 5px;
+        }
+
+
       }
-
-
     }
+
 
   }
 

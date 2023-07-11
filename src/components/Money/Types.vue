@@ -7,27 +7,41 @@
     </div>
 </template>
 
-<script lang="js">
-    export default {
-        props:['xxx'],
-        data(){
-            return{
-                type:'-'  //'-'表示支出，'+'表示收入
-            }
-        },
-        methods:{
-            selectedType(type){
-                if(type !== '-' && type!=='+'){
-                    throw new Error('type is error')
-                }
-                this.type = type
-                console.log(type);
-            }
-        },
+<script lang="ts">
+    import Vue from 'vue';
+    import {Component, Prop} from 'vue-property-decorator';
+
+    //使用TS
+    //1、引入Component, Prop
+    //2、声明一个类（export default class xxx extends Vue），上面必须写 @Component
+    //3、声明data和methods直接写
+    //4、用props根据官方文档写（ @Prop(Number) xxx: number | undefined;）
+
+    @Component
+
+    export default class Types extends Vue {
+        type = '-'; //'-'表示支出，'+'表示收入
+        @Prop(Number) xxx: number | undefined;
+
         mounted() {
-            console.log(this.xxx)
+            if (this.xxx === undefined) {
+                console.log('没有xxx');
+            } else {
+                console.log('xxx为：' + this.xxx);
+            }
         }
-    };
+
+        selectedType(type: string) {
+            if (type !== '-' && type !== '+') {
+                throw new Error('type is error');
+            }
+            this.type = type;
+        }
+
+
+    }
+
+
 </script>
 
 <style lang="scss" scoped>
