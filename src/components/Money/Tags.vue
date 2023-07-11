@@ -73,7 +73,7 @@
     </div>
 </template>
 
-<script lang="ts">
+<script lang="js">
     export default {};
 </script>
 
@@ -83,11 +83,9 @@
     padding: 16px;
     display: flex;
     flex-direction: column-reverse;
-    border: 1px solid red;
 
     ul {
 
-      //border: 1px solid red;
       display: flex;
       text-align: center;
       white-space: nowrap;

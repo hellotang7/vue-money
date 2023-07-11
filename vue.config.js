@@ -5,6 +5,7 @@ module.exports = defineConfig({
   transpileDependencies: true,
   lintOnSave:false,
 
+
   chainWebpack: config =>{
     const dir = path.resolve(__dirname, 'src/assets/icons')
 

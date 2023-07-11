@@ -6,7 +6,7 @@
 
             <Notes/>
 
-            <Tags/>
+            <Tags xxx="hi"/>
 
             <Types/>
 
