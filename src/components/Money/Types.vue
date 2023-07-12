@@ -21,15 +21,14 @@
 
     export default class Types extends Vue {
         type = '-'; //'-'表示支出，'+'表示收入
-        @Prop(Number) xxx: number | undefined;
-
-        mounted() {
-            if (this.xxx === undefined) {
-                console.log('没有xxx');
-            } else {
-                console.log('xxx为：' + this.xxx);
-            }
-        }
+        // @Prop(Number) xxx: number | undefined;
+        // mounted() {
+        //     if (this.xxx === undefined) {
+        //         console.log('没有xxx');
+        //     } else {
+        //         console.log('xxx为：' + this.xxx);
+        //     }
+        // }
 
         selectedType(type: string) {
             if (type !== '-' && type !== '+') {

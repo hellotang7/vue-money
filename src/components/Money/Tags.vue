@@ -1,126 +1,40 @@
 <template>
     <div class="tags">
+
         <ul>
-            <li>
-                <svg class="icon">
-                    <use xlink:href="#shoping"/>
+            <li v-for="tag in dataSource" :key="tag.name"
+                @click="toggle(tag)"
+                >
+                <svg class="icon" :class="{selected:selectedTags.indexOf(tag)>=0}">
+                    <use :xlink:href="`#${tag.img}`" />
                 </svg>
-                <span>购物</span>
-            </li>
-            <li>
-                <svg class="icon">
-                    <use xlink:href="#eat"/>
-                </svg>
-                <span>餐饮</span>
-            </li>
-
-            <li>
-                <svg class="icon">
-                    <use xlink:href="#home"/>
-                </svg>
-                <span>居住</span>
-            </li>
-            <li>
-                <svg class="icon">
-                    <use xlink:href="#bus"/>
-                </svg>
-                <span>交通</span>
-            </li>
-
-            <li>
-                <svg class="icon">
-                    <use xlink:href="#add"/>
-                </svg>
-                <span>添加</span>
-            </li>
-            <li>
-                <svg class="icon">
-                    <use xlink:href="#add"/>
-                </svg>
-                <span>添加</span>
-            </li>
-            <li>
-                <svg class="icon">
-                    <use xlink:href="#add"/>
-                </svg>
-                <span>添加</span>
-            </li>
-            <li>
-                <svg class="icon">
-                    <use xlink:href="#add"/>
-                </svg>
-                <span>添加</span>
-            </li>
-            <li>
-                <svg class="icon">
-                    <use xlink:href="#add"/>
-                </svg>
-                <span>添加</span>
-            </li>
-            <li>
-                <svg class="icon">
-                    <use xlink:href="#add"/>
-                </svg>
-                <span>添加</span>
-            </li>
-            <li>
-                <svg class="icon">
-                    <use xlink:href="#add"/>
-                </svg>
-                <span>添加</span>
-            </li>
-            <li>
-                <svg class="icon">
-                    <use xlink:href="#add"/>
-                </svg>
-                <span>添加</span>
-            </li>
-            <li>
-                <svg class="icon">
-                    <use xlink:href="#add"/>
-                </svg>
-                <span>添加</span>
-            </li>
-
-            <li>
-                <svg class="icon">
-                    <use xlink:href="#add"/>
-                </svg>
-                <span>添加</span>
-            </li>
-            <li>
-                <svg class="icon">
-                    <use xlink:href="#add"/>
-                </svg>
-                <span>添加</span>
-            </li>
-
-            <li>
-                <svg class="icon">
-                    <use xlink:href="#add"/>
-                </svg>
-                <span>添加</span>
-            </li>
-            <li>
-                <svg class="icon">
-                    <use xlink:href="#add"/>
-                </svg>
-                <span>添加</span>
+                <span>{{ tag.name }}</span>
             </li>
 
         </ul>
     </div>
 </template>
 
-<script lang="js">
+<script lang="ts">
     import Vue from 'vue';
-    import {Component} from 'vue-property-decorator';
+    import {Component, Prop} from 'vue-property-decorator';
 
     @Component
-
     export default class Tags extends Vue {
+        @Prop() dataSource: string[] | undefined;
+        selectedTags: string[] = [];
 
+        toggle(tag: string) {
+            const index = this.selectedTags.indexOf(tag)
+            if (index >= 0) {
+                this.selectedTags.splice(index, 1);
+            } else {
+                this.selectedTags = []
+                this.selectedTags.push(tag);
+                console.log(this.selectedTags);
 
+            }
+        }
 
     }
 </script>
@@ -135,26 +49,30 @@
 
 
     ul {
-
       display: flex;
       text-align: center;
       flex-wrap: wrap;
 
 
       li {
+        border-radius: 50%;
         width: 25%;
         padding: 8px 0;
-        font-size: 12px;
+        font-size: 14px;
         display: flex;
         flex-direction: column;
         align-items: center;
 
         .icon {
           background: #f5f5f5;
-          width: 36px;
-          height: 36px;
+          width: 44px;
+          height: 44px;
           border-radius: 50%;
           margin-bottom: 5px;
+          &.selected {
+            background: #ffda47;
+
+          }
         }
 
 
