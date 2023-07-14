@@ -25,6 +25,7 @@
         notes: string
         type: string
         amount: number
+        createdAt?:Date
     }
 
     @Component({
@@ -38,7 +39,7 @@
             {img: 'bus', name: '交通'},
         ];
         record: Record = {tags: [], notes: '', type: '-', amount: 0};
-        recordList: Record[] = [];
+        recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
 
         onUpdateTags(value: string[]) {
             this.record.tags = value;
@@ -54,9 +55,9 @@
         }
 
         saveRecord() {
-            const record2 = JSON.parse(JSON.stringify(this.record))
+            const record2:Record = JSON.parse(JSON.stringify(this.record))
+            record2.createdAt = new Date()
             this.recordList.push(record2)
-            console.log(this.recordList);
         }
         @Watch('recordList')
         watchRecordList(){
