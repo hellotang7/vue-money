@@ -1,13 +1,13 @@
 <template>
     <div>
         <Layout classPrefix="layout">
-            <NumberPad @update:value="onUpdateAmount"/>
+            <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
 
             <Notes @update:value="onUpdateNotes"/>
 
             <Tags :dataSource.sync="tags" @update:value="onUpdateTags"/>
 
-            <Types :value.sync="record.type" />
+            <Types :value.sync="record.type"/>
         </Layout>
     </div>
 </template>
@@ -38,18 +38,30 @@
             {img: 'bus', name: '交通'},
         ];
         record: Record = {tags: [], notes: '', type: '-', amount: 0};
+        recordList: Record[] = [];
 
         onUpdateTags(value: string[]) {
-            this.record.tags = value
+            this.record.tags = value;
         }
 
         onUpdateNotes(value: string) {
-            this.record.notes = value
+            this.record.notes = value;
         }
 
 
         onUpdateAmount(value: string) {
-            this.record.amount = parseFloat(value)
+            this.record.amount = parseFloat(value);
+        }
+
+        saveRecord() {
+            const record2 = JSON.parse(JSON.stringify(this.record))
+            this.recordList.push(record2)
+            console.log(this.recordList);
+        }
+        @Watch('recordList')
+        watchRecordList(){
+            window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
+
         }
 
 
