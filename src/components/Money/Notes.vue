@@ -4,15 +4,21 @@
             <span class="name">备注：</span>
             <input v-model="value" type="text" placeholder="在这里输入备注">
         </label>
-    </div></template>
+    </div>
+</template>
 
 <script lang="ts">
-    import Vue from 'vue';
-    import {Component} from 'vue-property-decorator';
+    import Vue, {watch} from 'vue';
+    import {Component, Watch} from 'vue-property-decorator';
 
     @Component
     export default class Notes extends Vue {
-    value='';
+        value = '';
+
+        @Watch('value')
+        watchValue(value:string){
+            this.$emit('update:value',this.value)
+        }
 
 
     }

@@ -1,49 +1,57 @@
 <template>
     <div>
         <Layout classPrefix="layout">
+            <NumberPad @update:value="onUpdateAmount"/>
 
-            <NumberPad/>
+            <Notes @update:value="onUpdateNotes"/>
 
-            <Notes/>
+            <Tags :dataSource.sync="tags" @update:value="onUpdateTags"/>
 
-            <Tags :dataSource="tags"/>
-
-            <Types/>
-
+            <Types :value.sync="record.type" />
         </Layout>
     </div>
 </template>
 
-<script lang="js">
+<script lang="ts">
     import Notes from '@/components/Money/Notes.vue';
     import NumberPad from '@/components/Money/NumberPad.vue';
     import Tags from '@/components/Money/Tags.vue';
     import Types from '@/components/Money/Types.vue';
+    import Vue from 'vue';
+    import {Component, Watch} from 'vue-property-decorator';
 
-    export default {
-        components: {Notes, NumberPad, Tags, Types},
-        data() {
-            return {
-                tags: [
-                    {img: 'shoping', name: '购物'},
-                    {img: 'eat', name: '餐饮'},
-                    {img: 'home', name: '居住'},
-                    {img: 'bus', name: '交通'},
-                    {img: 'add', name: '添加'},
-                    // {img: 'add', name: '添加'},
-                    // {img: 'add', name: '添加'},
-                    // {img: 'add', name: '添加'},
-                    // {img: 'add', name: '添加'},
-                    // {img: 'add', name: '添加'},
-                    // {img: 'add', name: '添加'},
-                    // {img: 'add', name: '添加'},
-                    // {img: 'add', name: '添加'},
-                    // {img: 'add', name: '添加'},
-                    // {img: 'add', name: '添加'},
-                    // {img: 'add', name: '添加'},
-                ]
-            }
+    type Record = {
+        tags: string[]
+        notes: string
+        type: string
+        amount: number
+    }
+
+    @Component({
+        components: {Notes, NumberPad, Tags, Types}
+    })
+    export default class Money extends Vue {
+        tags = [
+            {img: 'shoping', name: '购物'},
+            {img: 'eat', name: '餐饮'},
+            {img: 'home', name: '居住'},
+            {img: 'bus', name: '交通'},
+        ];
+        record: Record = {tags: [], notes: '', type: '-', amount: 0};
+
+        onUpdateTags(value: string[]) {
+            this.record.tags = value
         }
+
+        onUpdateNotes(value: string) {
+            this.record.notes = value
+        }
+
+
+        onUpdateAmount(value: string) {
+            this.record.amount = parseFloat(value)
+        }
+
 
     };
 </script>

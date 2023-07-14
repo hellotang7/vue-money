@@ -61,7 +61,7 @@
       }
     }
     .x {
-      color: $color-hightlight;
+      color: #ffda47;
     }
   }
 </style>

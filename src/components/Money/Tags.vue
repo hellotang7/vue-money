@@ -4,13 +4,18 @@
         <ul>
             <li v-for="tag in dataSource" :key="tag.name"
                 @click="toggle(tag)"
-                >
+            >
                 <svg class="icon" :class="{selected:selectedTags.indexOf(tag)>=0}">
-                    <use :xlink:href="`#${tag.img}`" />
+                    <use :xlink:href="`#${tag.img}`"/>
                 </svg>
                 <span>{{ tag.name }}</span>
             </li>
-
+            <li @click="newTag">
+                <svg class="icon">
+                    <use xlink:href="#add"/>
+                </svg>
+                <span>添加</span>
+            </li>
         </ul>
     </div>
 </template>
@@ -25,15 +30,24 @@
         selectedTags: string[] = [];
 
         toggle(tag: string) {
-            const index = this.selectedTags.indexOf(tag)
+            const index = this.selectedTags.indexOf(tag);
             if (index >= 0) {
                 this.selectedTags.splice(index, 1);
             } else {
-                this.selectedTags = []
+                this.selectedTags = [];
                 this.selectedTags.push(tag);
-                console.log(this.selectedTags);
-
             }
+            this.$emit('update:value',this.selectedTags)
+        }
+
+        newTag() {
+            const name = window.prompt('添加name');
+            if (name === '' ) {
+                window.alert('不能为空');
+            } else if (this.dataSource) {
+                this.$emit('update:dataSource', [...this.dataSource, {name}]);
+            }
+
         }
 
     }
@@ -69,6 +83,7 @@
           height: 44px;
           border-radius: 50%;
           margin-bottom: 5px;
+
           &.selected {
             background: #ffda47;
 

@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <ul class="types">
-            <li :class="type === '-' && 'selected'" @click="selectedType('-')">支出</li>
-            <li :class="type === '+' && 'selected'" @click="selectedType('+')">收入</li>
+    <div class="types">
+        <ul>
+            <li :class="value === '-' && 'selected'" @click="selectedType('-')">支出</li>
+            <li :class="value === '+' && 'selected'" @click="selectedType('+')">收入</li>
         </ul>
     </div>
 </template>
@@ -20,21 +20,13 @@
     @Component
 
     export default class Types extends Vue {
-        type = '-'; //'-'表示支出，'+'表示收入
-        // @Prop(Number) xxx: number | undefined;
-        // mounted() {
-        //     if (this.xxx === undefined) {
-        //         console.log('没有xxx');
-        //     } else {
-        //         console.log('xxx为：' + this.xxx);
-        //     }
-        // }
+        @Prop() value!: string ;
 
         selectedType(type: string) {
             if (type !== '-' && type !== '+') {
                 throw new Error('type is error');
             }
-            this.type = type;
+            this.$emit('update:value',type)
         }
 
 
@@ -45,28 +37,43 @@
 
 <style lang="scss" scoped>
   .types {
+    background: #ffda47;
     display: flex;
-    background: #c4c4c4;
-    font-size: 24px;
-    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 64px;
 
-
-    li {
+    ul {
+      border: 1px solid #f5f5f5;
+      border-radius: 20px;
+      height: 76%;
       width: 50%;
-      height: 64px;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
+      background: #ffda47;
+      font-size: 24px;
+      text-align: center;
 
-      &.selected::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 4px;
-        background: #333;
+      li {
+        color: #FFFFFF;
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &.selected {
+          background: #FFF;
+          color: #ffda47;
+        }
+
+        &:nth-child(1) {
+          border-radius: 20px 0 0 20px;
+        }
+
+        &:nth-child(2) {
+          border-radius: 0 20px 20px 0;
+        }
+
+
       }
     }
   }
