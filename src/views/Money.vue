@@ -20,13 +20,9 @@
     import Vue from 'vue';
     import {Component, Watch} from 'vue-property-decorator';
 
-    type Record = {
-        tags: string[]
-        notes: string
-        type: string
-        amount: number
-        createdAt?:Date
-    }
+    import recordListModel from '@/models/recordListModel';
+
+    const recordList = recordListModel.fetch();
 
     @Component({
         components: {Notes, NumberPad, Tags, Types}
@@ -38,8 +34,8 @@
             {img: 'home', name: '居住'},
             {img: 'bus', name: '交通'},
         ];
-        record: Record = {tags: [], notes: '', type: '-', amount: 0};
-        recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
+        record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
+        recordList: RecordItem[] = recordList;
 
         onUpdateTags(value: string[]) {
             this.record.tags = value;
@@ -55,14 +51,14 @@
         }
 
         saveRecord() {
-            const record2:Record = JSON.parse(JSON.stringify(this.record))
-            record2.createdAt = new Date()
-            this.recordList.push(record2)
+            const record2: RecordItem = recordListModel.clone(this.record);
+            record2.createdAt = new Date();
+            this.recordList.push(record2);
         }
-        @Watch('recordList')
-        watchRecordList(){
-            window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
 
+        @Watch('recordList')
+        watchRecordList() {
+            recordListModel.save(this.recordList);
         }
 
 

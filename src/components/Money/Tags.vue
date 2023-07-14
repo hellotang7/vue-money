@@ -70,7 +70,7 @@
 
       li {
         border-radius: 50%;
-        width: 25%;
+        width: 20%;
         padding: 8px 0;
         font-size: 14px;
         display: flex;
