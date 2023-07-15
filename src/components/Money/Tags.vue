@@ -8,7 +8,7 @@
                 <svg class="icon" :class="{selected:selectedTags.indexOf(tag)>=0}">
                     <use :xlink:href="`#${tag.img}`"/>
                 </svg>
-                <span>{{ tag }}</span>
+                <span>{{ tag.name }}</span>
             </li>
             <li @click="newTag">
                 <svg class="icon">

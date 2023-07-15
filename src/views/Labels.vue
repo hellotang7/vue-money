@@ -17,12 +17,12 @@
                         </svg>
                     </li>
 
-                    <li v-for="tag in tags" :key="tag">
+                    <li v-for="tag in tags" :key="tag.id">
                         <div class="lef">
                             <svg class="icon">
                                 <use xlink:href="`#${tag.img}`"/>
                             </svg>
-                            <p>{{ tag }}</p>
+                            <p>{{ tag.name }}</p>
                         </div>
                         <svg class="icon">
                             <use xlink:href="#rem"/>
