@@ -37,7 +37,7 @@
 
 <style lang="scss" scoped>
   .types {
-    background: #ffda47;
+    background: #f8f8f8;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -46,31 +46,33 @@
     ul {
       border: 1px solid #f5f5f5;
       border-radius: 20px;
-      height: 76%;
-      width: 50%;
+      height: 66%;
+      width: 60%;
       display: flex;
-      background: #ffda47;
-      font-size: 24px;
+      background: #fff;
+      font-size: 16px;
+      font-weight: 600;
       text-align: center;
 
       li {
-        color: #FFFFFF;
+        color: #f3c50c;
         width: 50%;
         display: flex;
         justify-content: center;
         align-items: center;
+        //transition: all 1s;
 
         &.selected {
-          background: #FFF;
-          color: #ffda47;
+          background: #f3c50c;
+          color: #fff;
         }
 
         &:nth-child(1) {
-          border-radius: 20px 0 0 20px;
+          border-radius: 20px;
         }
 
         &:nth-child(2) {
-          border-radius: 0 20px 20px 0;
+          border-radius:20px;
         }
 
 

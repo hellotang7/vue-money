@@ -1,269 +1,118 @@
 <template>
     <div>
         <Layout>
-            <div class="types">
+            <Types/>
 
-                <ul>
-                    <li>
+            <div class="tags">
+
+                <ol>
+
+
+                    <li @click="createTag">
+                        <div class="lef">
+                            <p>添加新的标签</p>
+                        </div>
                         <svg class="icon">
-                            <use xlink:href="#return"/>
+                            <use xlink:href="#right"/>
                         </svg>
                     </li>
-                    <li>
-                        添加类别
+
+                    <li v-for="tag in tags" :key="tag">
+                        <div class="lef">
+                            <svg class="icon">
+                                <use xlink:href="`#${tag.img}`"/>
+                            </svg>
+                            <p>{{ tag }}</p>
+                        </div>
+                        <svg class="icon">
+                            <use xlink:href="#rem"/>
+                        </svg>
                     </li>
-                    <li>完成</li>
-                </ul>
-            </div>
-            <div class="tags">
-                <div>
-                    <p>餐饮</p>
-                    <ul>
-                        <li>
-                            <svg class="icon">
-                                <use xlink:href="#add"/>
-                            </svg>
-                            <p>添加</p>
-                        </li>
-                        <li>
-                            <svg class="icon">
-                                <use xlink:href="#add"/>
-                            </svg>
-                            <p>添加</p>
-                        </li>
-                        <li>
-                            <svg class="icon">
-                                <use xlink:href="#add"/>
-                            </svg>
-                            <p>添加</p>
-                        </li>
-                        <li>
-                            <svg class="icon">
-                                <use xlink:href="#add"/>
-                            </svg>
-                            <p>添加</p>
-                        </li>
-                        <li>
-                            <svg class="icon">
-                                <use xlink:href="#add"/>
-                            </svg>
-                            <p>添加</p>
-                        </li>
-                        <li>
-                            <svg class="icon">
-                                <use xlink:href="#add"/>
-                            </svg>
-                            <p>添加</p>
-                        </li>
 
-                    </ul>
-                </div>
-                <div>
-                    <p>购物</p>
-                    <ul>
-                        <li>
-                            <svg class="icon">
-                                <use xlink:href="#add"/>
-                            </svg>
-                            <p>添加</p>
-                        </li>
-                        <li>
-                            <svg class="icon">
-                                <use xlink:href="#add"/>
-                            </svg>
-                            <p>添加</p>
-                        </li>
-                        <li>
-                            <svg class="icon">
-                                <use xlink:href="#add"/>
-                            </svg>
-                            <p>添加</p>
-                        </li>
-                        <li>
-                            <svg class="icon">
-                                <use xlink:href="#add"/>
-                            </svg>
-                            <p>添加</p>
-                        </li>
-                        <li>
-                            <svg class="icon">
-                                <use xlink:href="#add"/>
-                            </svg>
-                            <p>添加</p>
-                        </li>
-                        <li>
-                            <svg class="icon">
-                                <use xlink:href="#add"/>
-                            </svg>
-                            <p>添加</p>
-                        </li>
 
-                    </ul>
-                </div>
-                <div>
-                    <p>交通</p>
-                    <ul>
-                        <li>
-                            <svg class="icon">
-                                <use xlink:href="#add"/>
-                            </svg>
-                            <p>添加</p>
-                        </li>
-                        <li>
-                            <svg class="icon">
-                                <use xlink:href="#add"/>
-                            </svg>
-                            <p>添加</p>
-                        </li>
-                        <li>
-                            <svg class="icon">
-                                <use xlink:href="#add"/>
-                            </svg>
-                            <p>添加</p>
-                        </li>
-                        <li>
-                            <svg class="icon">
-                                <use xlink:href="#add"/>
-                            </svg>
-                            <p>添加</p>
-                        </li>
-                        <li>
-                            <svg class="icon">
-                                <use xlink:href="#add"/>
-                            </svg>
-                            <p>添加</p>
-                        </li>
-                        <li>
-                            <svg class="icon">
-                                <use xlink:href="#add"/>
-                            </svg>
-                            <p>添加</p>
-                        </li>
+                </ol>
 
-                    </ul>
-                </div>
-                <div>
-                    <p>居住</p>
-                    <ul>
-                        <li>
-                            <svg class="icon">
-                                <use xlink:href="#add"/>
-                            </svg>
-                            <p>添加</p>
-                        </li>
-                        <li>
-                            <svg class="icon">
-                                <use xlink:href="#add"/>
-                            </svg>
-                            <p>添加</p>
-                        </li>
-                        <li>
-                            <svg class="icon">
-                                <use xlink:href="#add"/>
-                            </svg>
-                            <p>添加</p>
-                        </li>
-                        <li>
-                            <svg class="icon">
-                                <use xlink:href="#add"/>
-                            </svg>
-                            <p>添加</p>
-                        </li>
-                        <li>
-                            <svg class="icon">
-                                <use xlink:href="#add"/>
-                            </svg>
-                            <p>添加</p>
-                        </li>
-                        <li>
-                            <svg class="icon">
-                                <use xlink:href="#add"/>
-                            </svg>
-                            <p>添加</p>
-                        </li>
 
-                    </ul>
-                </div>
             </div>
 
         </Layout>
     </div>
 </template>
 
-<script lang="js">
-    export default {
-        name: '',
+<script lang="ts">
+    import Types from '@/components/Money/Types.vue';
+    import {Component} from 'vue-property-decorator';
+    import Vue from 'vue';
+    import tagListModel from '@/models/tagListModel';
+
+    tagListModel.fetch();
+    @Component({
+        components: {Types},
+
+    })
+    export default class Labels extends Vue {
+        tags = tagListModel.data;
+
+        createTag() {
+            const name = window.prompt('请输入标签名');
+            if (!name) {
+                window.alert('不能为空');
+            } else if (tagListModel.create(name) === 'duplicated'){
+                alert('标签名重复了')
+            }
+        }
 
 
     };
 </script>
 <style lang="scss" scoped>
-  .types {
-    background: #ffda47;
-    display: flex;
-    height: 64px;
 
-    ul {
-      display: flex;
-      flex-grow: 1;
-      justify-content: space-between;
-      align-items: center;
-      background: #ffda47;
-      font-size: 24px;
-      color: #FFFFFF;
-      padding: 0 20px;
-
-      li {
-        &:nth-child(3) {
-          font-size: 18px;
-        }
-
-      }
-    }
-  }
-
-  p {
-    text-align: center;
-    color:#888
-  }
 
   .tags {
     height: calc(100vh - 120px);
-    flex-grow: 1;
-    padding: 16px;
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     overflow-y: auto;
+    position: relative;
 
-
-    ul {
-      display: flex;
-      text-align: center;
-      flex-wrap: wrap;
+    ol {
+      //border: 1px solid red;
+      flex-grow: 1;
 
 
       li {
-        border-radius: 50%;
-        width: 20%;
-        padding: 8px 0;
-        font-size: 14px;
+        border-top: 1px solid #e2e2e2;
+
         display: flex;
-        flex-direction: column;
         align-items: center;
+        justify-content: space-between;
+        padding: 8px 14px;
 
-        .icon {
-          background: #f5f5f5;
-          width: 44px;
-          height: 44px;
-          border-radius: 50%;
-          margin-bottom: 5px;
 
-          &.selected {
-            background: #ffda47;
+        .lef {
+          display: flex;
+          align-items: center;
+          flex-direction: row;
 
+          .icon {
+            margin-right: 6px;
+            font-size: 26px;
+          }
+
+          p {
           }
         }
 
+        .icon {
+          font-size: 20px;
+
+
+        }
+
+        &:first-child {
+          border-top: none
+        }
 
       }
     }

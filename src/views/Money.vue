@@ -21,19 +21,24 @@
     import {Component, Watch} from 'vue-property-decorator';
 
     import recordListModel from '@/models/recordListModel';
+    import tagListModel from '@/models/tagListModel';
 
     const recordList = recordListModel.fetch();
+    const tagList = tagListModel.fetch();
 
     @Component({
         components: {Notes, NumberPad, Tags, Types}
     })
     export default class Money extends Vue {
-        tags = [
-            {img: 'shoping', name: '购物'},
-            {img: 'eat', name: '餐饮'},
-            {img: 'home', name: '居住'},
-            {img: 'bus', name: '交通'},
-        ];
+        tags = tagList;
+        // tags =   [
+        //     {img: 'shoping', name: '购物'},
+        //     {img: 'eat', name: '餐饮'},
+        //     {img: 'home', name: '居住'},
+        //     {img: 'bus', name: '交通'},
+        // ];
+
+
         record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
         recordList: RecordItem[] = recordList;
 

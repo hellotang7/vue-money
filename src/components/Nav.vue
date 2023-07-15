@@ -61,7 +61,7 @@
       }
     }
     .x {
-      color: #ffda47;
+      color: #f3c50c;
     }
   }
 </style>

@@ -2,20 +2,21 @@
     <div class="tags">
 
         <ul>
-            <li v-for="tag in dataSource" :key="tag.name"
+            <li v-for="tag in dataSource" :key="tag"
                 @click="toggle(tag)"
             >
                 <svg class="icon" :class="{selected:selectedTags.indexOf(tag)>=0}">
                     <use :xlink:href="`#${tag.img}`"/>
                 </svg>
-                <span>{{ tag.name }}</span>
+                <span>{{ tag }}</span>
             </li>
             <li @click="newTag">
                 <svg class="icon">
-                    <use xlink:href="#add"/>
+                    <use xlink:href="#edit"/>
                 </svg>
-                <span>添加</span>
+                <span>编辑</span>
             </li>
+
         </ul>
     </div>
 </template>
@@ -37,16 +38,11 @@
                 this.selectedTags = [];
                 this.selectedTags.push(tag);
             }
-            this.$emit('update:value',this.selectedTags)
+            this.$emit('update:value', this.selectedTags);
         }
 
         newTag() {
-            const name = window.prompt('添加name');
-            if (name === '' ) {
-                window.alert('不能为空');
-            } else if (this.dataSource) {
-                this.$emit('update:dataSource', [...this.dataSource, {name}]);
-            }
+
 
         }
 
