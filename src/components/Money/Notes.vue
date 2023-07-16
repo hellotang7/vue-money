@@ -17,7 +17,6 @@
         @Prop({required:true}) fieldName!:string
         @Prop() placeholder?:string
 
-        @Watch('value')
         watchValue(value:string){
             this.$emit('update:value',value)
         }

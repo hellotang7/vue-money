@@ -33,11 +33,11 @@
     export default class Money extends Vue {
         tags = tagList;
         // tags =   [
-        //     {img: 'shoping', name: '购物'},
-        //     {img: 'eat', name: '餐饮'},
-        //     {img: 'home', name: '居住'},
-        //     {img: 'bus', name: '交通'},
-        // ] + tagList;
+        //     {id:1,img: 'shoping', name: '购物'},
+        //     {id:2,img: 'eat', name: '餐饮'},
+        //     {id:3,img: 'home', name: '居住'},
+        //     {id:4,img: 'bus', name: '交通'},
+        // ];
 
 
         record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};

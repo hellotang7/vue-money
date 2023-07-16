@@ -2,6 +2,15 @@
     <div class="tags">
 
         <ul>
+
+            <li>
+                <svg class="icon">
+                    <use xlink:href="#home"/>
+                </svg>
+                <span>居住</span>
+            </li>
+
+
             <li v-for="tag in dataSource" :key="tag.id"
                 @click="toggle(tag)"
             >

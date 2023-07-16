@@ -17,6 +17,18 @@
                         </svg>
                     </li>
 
+                    <li>
+                        <div class="lef">
+                            <svg class="icon">
+                                <use xlink:href="#home"/>
+                            </svg>
+                            <p>居住</p>
+                        </div>
+                        <svg class="icon">
+                            <use xlink:href="#remove"/>
+                        </svg>
+                    </li>
+
                     <li v-for="tag in tags" :key="tag.id">
                         <div class="lef">
                             <svg class="icon">
@@ -58,7 +70,7 @@
 
         }
 
-        remove(tag){
+        remove(tag:any){
             if (tag){
                 alert('是否删除？')
                 tagListModel.remove(tag.id)
