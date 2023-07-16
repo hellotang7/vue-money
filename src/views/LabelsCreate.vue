@@ -54,7 +54,7 @@
 
             </ul>
         </div>
-        <div class="x" @click="x" >
+        <div class="x" @click="addTag" >
             <button>确定</button>
         </div>
     </Layout>
@@ -73,17 +73,13 @@
     export default class extends Vue {
         tagName!:string
         tag?:{id:string,name:string} = undefined
-        x() {
+        addTag() {
 
             const name = this.tagName
             if (!name) {
                 window.alert('不能为空');
-            } else if (tagListModel.create(name) === 'duplicated') {
-                alert('标签名重复了')
-
-            }else{
-                this.$router.back()
-
+            }else {
+                window.createTag(name)
             }
 
         }
