@@ -2,7 +2,7 @@
     <div class="tags">
 
         <ul>
-            <li v-for="tag in dataSource" :key="tag"
+            <li v-for="tag in dataSource" :key="tag.id"
                 @click="toggle(tag)"
             >
                 <svg class="icon" :class="{selected:selectedTags.indexOf(tag)>=0}">
@@ -42,8 +42,7 @@
         }
 
         newTag() {
-
-
+            this.$router.push('/labels');
         }
 
     }
@@ -65,8 +64,7 @@
 
 
       li {
-        border-radius: 50%;
-        width: 20%;
+        width: 25%;
         padding: 8px 0;
         font-size: 14px;
         display: flex;
@@ -74,10 +72,11 @@
         align-items: center;
 
         .icon {
+          padding: 1px;
           background: #f5f5f5;
           width: 44px;
           height: 44px;
-          border-radius: 50%;
+          border-radius: 10px;
           margin-bottom: 5px;
 
           &.selected {

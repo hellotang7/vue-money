@@ -1,9 +1,10 @@
 <template>
     <div>
         <Layout classPrefix="layout">
+            {{record}}
             <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
 
-            <Notes @update:value="onUpdateNotes"/>
+            <Notes @update:value="onUpdateNotes" fieldName="备注：" placeholder="请输入备注"/>
 
             <Tags :dataSource.sync="tags" @update:value="onUpdateTags"/>
 
@@ -36,7 +37,7 @@
         //     {img: 'eat', name: '餐饮'},
         //     {img: 'home', name: '居住'},
         //     {img: 'bus', name: '交通'},
-        // ];
+        // ] + tagList;
 
 
         record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};

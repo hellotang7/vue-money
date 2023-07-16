@@ -5,11 +5,11 @@ import Money from '@/views/Money.vue';
 import Labels from '@/views/Labels.vue';
 import Statistics from '@/views/Statistics.vue';
 import NotFound from '@/views/NotFound.vue';
+import LabelsCreate from '@/views/LabelsCreate.vue';
 
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
-
     {
         path: '/',
         redirect:'/money'
@@ -19,6 +19,9 @@ const routes: Array<RouteConfig> = [
     }, {
         path: '/labels',
         component: Labels
+    },{
+        path: '/labels/add',
+        component: LabelsCreate
     }, {
         path: '/statistics',
         component: Statistics

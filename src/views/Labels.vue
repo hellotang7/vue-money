@@ -24,8 +24,8 @@
                             </svg>
                             <p>{{ tag.name }}</p>
                         </div>
-                        <svg class="icon">
-                            <use xlink:href="#rem"/>
+                        <svg class="icon" @click="remove(tag)">
+                            <use xlink:href="#remove"/>
                         </svg>
                     </li>
 
@@ -54,11 +54,15 @@
         tags = tagListModel.data;
 
         createTag() {
-            const name = window.prompt('请输入标签名');
-            if (!name) {
-                window.alert('不能为空');
-            } else if (tagListModel.create(name) === 'duplicated'){
-                alert('标签名重复了')
+            this.$router.push('/labels/add')
+
+        }
+
+        remove(tag){
+            if (tag){
+                alert('是否删除？')
+                tagListModel.remove(tag.id)
+
             }
         }
 
