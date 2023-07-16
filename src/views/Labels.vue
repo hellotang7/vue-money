@@ -63,7 +63,7 @@
 
     })
     export default class Labels extends Vue {
-        tags = tagListModel.data;
+        tags = window.tagList
 
         createTag() {
             this.$router.push('/labels/add')

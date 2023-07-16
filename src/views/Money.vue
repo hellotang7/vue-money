@@ -25,13 +25,12 @@
     import tagListModel from '@/models/tagListModel';
 
     const recordList = recordListModel.fetch();
-    const tagList = tagListModel.fetch();
 
     @Component({
         components: {Notes, NumberPad, Tags, Types}
     })
     export default class Money extends Vue {
-        tags = tagList;
+        tags = window.tagList;
         // tags =   [
         //     {id:1,img: 'shoping', name: '购物'},
         //     {id:2,img: 'eat', name: '餐饮'},
