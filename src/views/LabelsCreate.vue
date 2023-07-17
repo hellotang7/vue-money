@@ -76,9 +76,10 @@
         addTag() {
             if (!this.tagName) {
                 window.alert('不能为空');
-            } else {
-                window.createTag(this.tagName);
-            }
+            } else
+                this.$store.commit('createTag', this.tagName);
+                this.$router.back();
+
         }
 
         updateTag(value: string) {

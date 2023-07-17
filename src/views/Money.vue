@@ -1,7 +1,7 @@
 <template>
     <div>
-        <Layout classPrefix="layout">
-            <!--            {{record}}-->
+        <Layout_ classPrefix="layout">
+<!--            {{record}}-->
             <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
 
             <Notes @update:value="onUpdateNotes" fieldName="备注：" placeholder="请输入备注"/>
@@ -9,7 +9,7 @@
             <Tags :dataSource.sync="tags" @update:value="onUpdateTags"/>
 
             <Types :value.sync="record.type"/>
-        </Layout>
+        </Layout_>
     </div>
 </template>
 
@@ -19,14 +19,19 @@
     import Tags from '@/components/Money/Tags.vue';
     import Types from '@/components/Money/Types.vue';
     import Vue from 'vue';
-    import {Component, } from 'vue-property-decorator';
+    import {Component, Watch} from 'vue-property-decorator';
 
 
     @Component({
-        components: {Notes, NumberPad, Tags, Types}
+        components: {Notes, NumberPad, Tags, Types},
+        computed:{
+            tags(){
+                return this.$store.state.tagList
+            }
+        }
     })
     export default class Money extends Vue {
-        tags = window.tagList;
+        // tags = window.tagList;
         // tags =   [
         //     {id:1,img: 'shoping', name: '购物'},
         //     {id:2,img: 'eat', name: '餐饮'},
@@ -37,6 +42,14 @@
 
         record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
         recordList = window.recordList;
+
+
+        create(){
+            this.$store.commit('fetchRecord')
+            this.$store.commit('fetchTag')
+
+
+        }
 
         onUpdateTags(value: string[]) {
             this.record.tags = value;
@@ -51,7 +64,9 @@
             this.record.amount = parseFloat(value);
         }
 
-
+        saveRecord() {
+            this.$store.commit('createRecord',this.record)
+        }
 
 
 

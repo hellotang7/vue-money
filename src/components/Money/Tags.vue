@@ -2,15 +2,6 @@
     <div class="tags">
 
         <ul>
-
-            <li>
-                <svg class="icon">
-                    <use xlink:href="#home"/>
-                </svg>
-                <span>居住</span>
-            </li>
-
-
             <li v-for="tag in dataSource" :key="tag.id"
                 @click="toggle(tag)"
             >
@@ -34,11 +25,20 @@
     import Vue from 'vue';
     import {Component, Prop} from 'vue-property-decorator';
 
-    @Component
+    @Component({
+        computed:{
+            tagList(){
+                return this.$store.state.tagList
+            }
+        }
+    })
     export default class Tags extends Vue {
         @Prop() dataSource: string[] | undefined;
         selectedTags: string[] = [];
 
+        created(){
+            this.$store.commit('fetchTag')
+        }
         toggle(tag: string) {
             const index = this.selectedTags.indexOf(tag);
             if (index >= 0) {

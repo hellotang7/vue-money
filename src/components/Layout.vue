@@ -3,7 +3,7 @@
         <div class="content" :class="classPrefix && `${classPrefix}-content`">
             <slot/>
         </div>
-        <Nav/>
+        <Nav_/>
     </div>
 </template>
 

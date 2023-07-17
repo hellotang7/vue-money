@@ -1,31 +1,17 @@
 <template>
     <div>
-        <Layout>
+        <Layout_>
             <Types/>
 
             <div class="tags">
 
                 <ol>
-
-
                     <li @click="createTag">
                         <div class="lef">
                             <p>添加新的标签</p>
                         </div>
                         <svg class="icon">
                             <use xlink:href="#right"/>
-                        </svg>
-                    </li>
-
-                    <li>
-                        <div class="lef">
-                            <svg class="icon">
-                                <use xlink:href="#home"/>
-                            </svg>
-                            <p>居住</p>
-                        </div>
-                        <svg class="icon">
-                            <use xlink:href="#remove"/>
                         </svg>
                     </li>
 
@@ -47,7 +33,7 @@
 
             </div>
 
-        </Layout>
+        </Layout_>
     </div>
 </template>
 
@@ -58,27 +44,29 @@
 
     @Component({
         components: {Types},
-
+        computed: {
+            tags() {
+                return this.$store.state.tagList;
+            }
+        }
     })
     export default class Labels extends Vue {
-        tags = window.tagList;
+        created() {
+            this.$store.commit('fetchTag');
+        }
+
 
         createTag() {
             this.$router.push('/labels/add');
-
         }
 
-        remove(id: any) {
-            if (window.removeTag(id)) {
-
-                alert('删除成功');
-            } else {
-                alert('删除失败');
-            }
+        remove(id: string) {
+            alert('确认删除吗？');
+            this.$store.commit('removeTag', id);
         }
 
 
-    };
+    }
 </script>
 <style lang="scss" scoped>
 
