@@ -1,7 +1,7 @@
 <template>
     <div>
         <Layout classPrefix="layout">
-            {{record}}
+<!--            {{record}}-->
             <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
 
             <Notes @update:value="onUpdateNotes" fieldName="备注：" placeholder="请输入备注"/>
@@ -20,9 +20,7 @@
     import Types from '@/components/Money/Types.vue';
     import Vue from 'vue';
     import {Component, Watch} from 'vue-property-decorator';
-
     import recordListModel from '@/models/recordListModel';
-    import tagListModel from '@/models/tagListModel';
 
     const recordList = recordListModel.fetch();
 

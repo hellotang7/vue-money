@@ -16,13 +16,21 @@ Vue.component('Layout', Layout);
 window.tagList = tagListModel.fetch();
 window.createTag = (name:string) => {
 const msg = tagListModel.create(name)
-    if (msg === 'duplicated') {
+   if (msg === 'duplicated') {
         alert('标签名重复了');
     }else if (msg === 'success'){
         alert('创建成功')
         router.back()
     }
 };
+window.removeTag=(id:string)=>{
+    return tagListModel.remove(id)
+
+}
+
+
+
+
 
 new Vue({
     router,

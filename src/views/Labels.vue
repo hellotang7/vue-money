@@ -36,7 +36,7 @@
                             </svg>
                             <p>{{ tag.name }}</p>
                         </div>
-                        <svg class="icon" @click="remove(tag)">
+                        <svg class="icon" @click="remove(tag.id)">
                             <use xlink:href="#remove"/>
                         </svg>
                     </li>
@@ -55,26 +55,25 @@
     import Types from '@/components/Money/Types.vue';
     import {Component} from 'vue-property-decorator';
     import Vue from 'vue';
-    import tagListModel from '@/models/tagListModel';
 
-    tagListModel.fetch();
     @Component({
         components: {Types},
 
     })
     export default class Labels extends Vue {
-        tags = window.tagList
+        tags = window.tagList;
 
         createTag() {
-            this.$router.push('/labels/add')
+            this.$router.push('/labels/add');
 
         }
 
-        remove(tag:any){
-            if (tag){
-                alert('是否删除？')
-                tagListModel.remove(tag.id)
+        remove(id: any) {
+            if (window.removeTag(id)) {
 
+                alert('删除成功');
+            } else {
+                alert('删除失败');
             }
         }
 

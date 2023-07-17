@@ -10,7 +10,7 @@
             <div>添加标签</div>
             <div></div>
         </div>
-        <Notes fieldName="标签名：" placeholder="请输入标签名"  @update:value="updateTag"  />
+        <Notes fieldName="标签名：" placeholder="请输入标签名" @update:value="updateTag"/>
 
         <div>
             <p>图标</p>
@@ -54,7 +54,7 @@
 
             </ul>
         </div>
-        <div class="x" @click="addTag" >
+        <div class="x" @click="addTag">
             <button>确定</button>
         </div>
     </Layout>
@@ -64,32 +64,29 @@
     import Vue from 'vue';
     import {Component} from 'vue-property-decorator';
     import Notes from '@/components/Money/Notes.vue';
-    import tagListModel from '@/models/tagListModel';
 
 
     @Component({
         components: {Notes}
     })
     export default class extends Vue {
-        tagName!:string
-        tag?:{id:string,name:string} = undefined
+        tagName!: string;
+        tag?: { id: string, name: string } = undefined;
+
         addTag() {
-
-            const name = this.tagName
-            if (!name) {
+            if (!this.tagName) {
                 window.alert('不能为空');
-            }else {
-                window.createTag(name)
+            } else {
+                window.createTag(this.tagName);
             }
-
         }
-        updateTag(value:string){
-            this.tagName = value
 
-
+        updateTag(value: string) {
+            this.tagName = value;
         }
-        goback(){
-            this.$router.back()
+
+        goback() {
+            this.$router.back();
         }
     }
 </script>
@@ -105,7 +102,7 @@
 
     div {
       &:nth-child(1) {
-        display:flex;
+        display: flex;
         justify-content: center;
         align-items: center;
         width: 44px;
@@ -160,14 +157,14 @@
 
   }
 
-  .x{
+  .x {
     height: 30%;
     display: flex;
     justify-content: center;
     align-items: center;
 
 
-    button{
+    button {
       height: 40px;
       cursor: pointer;
       width: 80%;
