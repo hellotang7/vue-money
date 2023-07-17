@@ -1,7 +1,7 @@
 <template>
     <div>
         <Layout classPrefix="layout">
-<!--            {{record}}-->
+            <!--            {{record}}-->
             <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
 
             <Notes @update:value="onUpdateNotes" fieldName="备注：" placeholder="请输入备注"/>
@@ -19,10 +19,8 @@
     import Tags from '@/components/Money/Tags.vue';
     import Types from '@/components/Money/Types.vue';
     import Vue from 'vue';
-    import {Component, Watch} from 'vue-property-decorator';
-    import recordListModel from '@/models/recordListModel';
+    import {Component, } from 'vue-property-decorator';
 
-    const recordList = recordListModel.fetch();
 
     @Component({
         components: {Notes, NumberPad, Tags, Types}
@@ -38,7 +36,7 @@
 
 
         record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
-        recordList: RecordItem[] = recordList;
+        recordList = window.recordList;
 
         onUpdateTags(value: string[]) {
             this.record.tags = value;
@@ -53,14 +51,8 @@
             this.record.amount = parseFloat(value);
         }
 
-        saveRecord() {
-            recordListModel.create(this.record)
-        }
 
-        @Watch('recordList')
-        watchRecordList() {
-            recordListModel.save();
-        }
+
 
 
     };

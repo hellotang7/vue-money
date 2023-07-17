@@ -22,4 +22,7 @@ interface Window{
     tagList:Tag[]
     createTag:(name:string)=> void
     removeTag:(id:string)=>boolean
+
+    recordList:RecordItem[]
+createRecord:(record:RecordItem)=> void
 }
