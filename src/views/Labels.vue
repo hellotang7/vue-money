@@ -1,7 +1,8 @@
 <template>
     <div>
         <Layout_>
-            <Types class="types" :value.sync="xxx"/>
+            <Tabs  :dataSource="typeList" :value.sync="type"/>
+
 
             <div class="tags">
 
@@ -38,16 +39,19 @@
 </template>
 
 <script lang="ts">
-    import Types from '@/components/Money/Types.vue';
     import {Component} from 'vue-property-decorator';
+    import typeList from '@/constants/typeList';
+    import Tabs from '@/components/Tabs.vue';
     import Vue from 'vue';
 
     @Component({
-        components: {Types},
+        components: {Tabs},
 
     })
     export default class Labels extends Vue {
-        xxx='-'
+        typeList=typeList;
+
+        type = '-';
         get tags() {
             return this.$store.state.tagList;
         }
