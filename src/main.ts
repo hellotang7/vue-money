@@ -21,7 +21,7 @@ window.createRecord = (record: RecordItem) => {
 };
 
 //tag store
-window.tagList = tagListModel.fetch();
+// window.tagList = tagListModel.fetch();
 window.createTag = (name: string) => {
     const msg = tagListModel.create(name);
     if (msg === 'duplicated') {

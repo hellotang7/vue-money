@@ -1,5 +1,5 @@
 <template>
-    <Layout>
+    <Layout_>
         <div class="types">
             <div @click="goback">
                 <svg class="icon">
@@ -15,39 +15,9 @@
         <div>
             <p>图标</p>
             <ul>
-                <li>
+                <li v-for="i in imgs" @click="tagimg(i.img)" :class="{selected:selectedTags.indexOf(i.img)>=0}">
                     <svg class="icon">
-                        <use xlink:href="#home"/>
-                    </svg>
-                </li>
-
-                <li>
-                    <svg class="icon">
-                        <use xlink:href="#home"/>
-                    </svg>
-                </li>
-
-                <li>
-                    <svg class="icon">
-                        <use xlink:href="#home"/>
-                    </svg>
-                </li>
-
-                <li>
-                    <svg class="icon">
-                        <use xlink:href="#home"/>
-                    </svg>
-                </li>
-
-                <li>
-                    <svg class="icon">
-                        <use xlink:href="#home"/>
-                    </svg>
-                </li>
-
-                <li>
-                    <svg class="icon">
-                        <use xlink:href="#home"/>
+                        <use :xlink:href="`#${i.img}`"/>
                     </svg>
                 </li>
 
@@ -57,7 +27,7 @@
         <div class="x" @click="addTag">
             <button>确定</button>
         </div>
-    </Layout>
+    </Layout_>
 </template>
 
 <script lang="ts">
@@ -70,16 +40,39 @@
         components: {Notes}
     })
     export default class extends Vue {
+        selectedTags: string[] = [];
+
         tagName!: string;
+        tagImg!: string;
         tag?: { id: string, name: string } = undefined;
+
+        imgs = [
+            {img: 'shopping'},
+            {img: 'eat'},
+            {img: 'home'},
+            {img: 'bus'},
+        ];
+
+
+        tagimg(img: string) {
+            this.tagImg = img;
+
+            const index = this.selectedTags.indexOf(img);
+            if (index >= 0) {
+                this.selectedTags.splice(index, 1);
+            } else {
+                this.selectedTags = [];
+                this.selectedTags.push(img);
+            }
+        }
 
         addTag() {
             if (!this.tagName) {
                 window.alert('不能为空');
-            } else
-                this.$store.commit('createTag', this.tagName);
+            } else {
+                this.$store.commit('createTag', {name: this.tagName, img: this.tagImg});
                 this.$router.back();
-
+            }
         }
 
         updateTag(value: string) {
@@ -138,6 +131,11 @@
         padding: 8px 0;
         font-size: 14px;
 
+        &.selected {
+          .icon {
+            background: #ffda47;
+          }
+        }
 
         .icon {
           padding: 1px;
@@ -146,10 +144,7 @@
           height: 44px;
           border-radius: 10px;
 
-          &.selected {
-            background: #ffda47;
 
-          }
         }
 
 

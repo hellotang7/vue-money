@@ -10,6 +10,7 @@ type RecordItem = {
 type Tag = {
     id: string
     name: string
+    img:string
 }
 type TagListModel = {
     data: Tag[]

@@ -39,14 +39,18 @@ const store = new Vuex.Store({
         fetchTag(state) {
            state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
         },
-        createTag(state, name: string) {
-            const names = state.tagList.map(item => item.name);
-            if (names.indexOf(name) >= 0) {
-            }
+        createTag(state, payload:{img:string,name: string,}) {
+            const {name,img} = payload
 
-            const id = createId().toString()
-            state.tagList.push({id, name: name});
-            store.commit('saveTag')
+            const names = state.tagList.map(item => item.name);
+            const ID = createId().toString()
+
+            if (names.indexOf(name) >= 0) {
+                alert('标签名不可重复')
+            }else {
+                state.tagList.push({id:ID, name: name,img:img});
+                store.commit('saveTag')
+            }
         },
         saveTag(state) {
             window.localStorage.setItem('tagList', JSON.stringify(state.tagList));
@@ -61,7 +65,6 @@ const store = new Vuex.Store({
             }
             state.tagList.splice(index, 1);
             store.commit('saveTag')
-            return true;
         }
 
     },

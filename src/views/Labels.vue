@@ -18,7 +18,7 @@
                     <li v-for="tag in tags" :key="tag.id">
                         <div class="lef">
                             <svg class="icon">
-                                <use xlink:href="`#${tag.img}`"/>
+                                <use :xlink:href="`#${tag.img}`"/>
                             </svg>
                             <p>{{ tag.name }}</p>
                         </div>
