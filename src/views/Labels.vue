@@ -1,7 +1,7 @@
 <template>
     <div>
         <Layout_>
-            <Types/>
+            <Types class="types" :value.sync="xxx"/>
 
             <div class="tags">
 
@@ -47,6 +47,7 @@
 
     })
     export default class Labels extends Vue {
+        xxx='-'
         get tags() {
             return this.$store.state.tagList;
         }
@@ -98,8 +99,8 @@
           flex-direction: row;
 
           .icon {
-            margin-right: 6px;
-            font-size: 26px;
+            margin-right: 8px;
+            font-size: 32px;
           }
 
           p {
@@ -107,7 +108,7 @@
         }
 
         .icon {
-          font-size: 20px;
+          font-size: 18px;
 
 
         }
@@ -121,7 +122,11 @@
 
 
   }
-
+  .types::v-deep  li {
+    &.selected {
+      background: #f3c50c;
+      color: #fff;
+    }}
 
 </style>
 

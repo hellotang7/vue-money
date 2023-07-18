@@ -40,7 +40,7 @@
         components: {Notes}
     })
     export default class extends Vue {
-        selectedTags: string[] = [];
+        selectedTags: string[] = ['shopping'];
 
         tagName!: string;
         tagImg!: string;
@@ -69,8 +69,10 @@
         addTag() {
             if (!this.tagName) {
                 window.alert('不能为空');
-            } else {
-                this.$store.commit('createTag', {name: this.tagName, img: this.tagImg});
+            } else if (this.tagName.length > 5){
+                window.alert('标签名要小于5个字符')
+            }else {
+                this.$store.commit('createTag', {name: this.tagName, img: this.selectedTags});
                 this.$router.back();
             }
         }
@@ -133,7 +135,7 @@
 
         &.selected {
           .icon {
-            background: #ffda47;
+            background: #ffd35e;
           }
         }
 
