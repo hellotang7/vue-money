@@ -2,7 +2,7 @@
     <div>
         <Layout_>
             <Tabs classPrefix="type" :dataSource="typeList" :value.sync="type"/>
-            <Tabs classPrefix="intercal" :dataSource="intervalList" :value.sync="interval"/>
+            <Tabs classPrefix="interval" :dataSource="intervalList" :value.sync="interval"/>
             <div>
                 {{ type }}
                 <br>
@@ -25,18 +25,31 @@
     export default class Statistics extends Vue {
         type = '-';
         interval = 'day';
-        typeList=typeList
-        intervalList= intervalList
+        typeList = typeList;
+        intervalList = intervalList;
     }
 </script>
 
 <style lang="scss" scoped>
-  ::v-deep .type-tabs-item {
-    border: 1px solid red;
 
-    &.selected {
-      background: #f3c50c;
-      color: #fff;
+
+  ::v-deep
+  .interval-tabs {
+    height: 28px;
+
+    .interval-tabs-ul {
+      width: 100%;
+      height: 100%;
+
+      .interval-tabs-li {
+        border-radius: 0;
+        margin-right: 1px;
+        border-right: 1px solid #e3e3e3;
+
+        &:nth-child(3) {
+          border-right: none;
+        }
+      }
     }
   }
 </style>

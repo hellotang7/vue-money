@@ -1,9 +1,9 @@
 `
 <template>
-    <div class="tabs">
-        <ul>
+    <div class="tabs" :class="{[classPrefix + '-tabs']:classPrefix}">
+        <ul :class="{[classPrefix + '-tabs-ul']:classPrefix}">
             <li v-for="item in dataSource" :key="item.value"
-                @click="select(item)"      :class="liClass(item)">
+                @click="select(item)" :class="liClass(item)">
                 {{ item.text }}
             </li>
         </ul>
@@ -23,11 +23,12 @@
         @Prop(String) readonly value!: string;
         @Prop(String) classPrefix?: string;
 
-        liClass(item:DataSourceItem){
-            return{
-            [this.classPrefix + '-tabs-item']: this.classPrefix,
-            selected: item.value === this.value
-        };}
+        liClass(item: DataSourceItem) {
+            return {
+                [this.classPrefix + '-tabs-li']: this.classPrefix,
+                selected: item.value === this.value
+            };
+        }
 
         select(item: DataSourceItem) {
             this.$emit('update:value', item.value);
@@ -77,6 +78,10 @@
         }
 
         &:nth-child(2) {
+          border-radius: 20px;
+        }
+
+        &:nth-child(3) {
           border-radius: 20px;
         }
 
