@@ -8,7 +8,8 @@
 
             <Tags :dataSource.sync="tags" @update:value="onUpdateTags"/>
 
-            <Types :value.sync="record.type"/>
+            <Tabs  :dataSource="typeList" :value.sync="record.type"/>
+
         </Layout_>
     </div>
 </template>
@@ -17,13 +18,14 @@
     import Notes from '@/components/Money/Notes.vue';
     import NumberPad from '@/components/Money/NumberPad.vue';
     import Tags from '@/components/Money/Tags.vue';
-    import Types from '@/components/Money/Types.vue';
+    import Tabs from '@/components/Tabs.vue';
     import Vue from 'vue';
     import {Component, Watch} from 'vue-property-decorator';
+    import typeList from '@/constants/typeList';
 
 
     @Component({
-        components: {Notes, NumberPad, Tags, Types},
+        components: {Notes, NumberPad, Tags, Tabs},
 
     })
     export default class Money extends Vue {
@@ -35,6 +37,7 @@
         //     {id:4,img: 'bus', name: '交通'},
         // ];
 
+        typeList=typeList;
 
         record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
         recordList = window.recordList;
