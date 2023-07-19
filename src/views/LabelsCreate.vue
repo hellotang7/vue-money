@@ -106,9 +106,7 @@
         font-size: 26px;
       }
 
-      &:nth-child(2) {
 
-      }
 
       &:nth-child(3) {
         width: 44px;

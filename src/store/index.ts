@@ -1,17 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import createId from '@/lib/createId';
+import clone from '@/lib/clone';
 
 Vue.use(Vuex);
 
 
 
-const recordListModel = {
-    data: [] as RecordItem[],
-    clone(data: RecordItem[] | RecordItem) {
-        return JSON.parse(JSON.stringify(data));
-    },
-};
+
 
 const store = new Vuex.Store({
     state: {
@@ -26,7 +22,7 @@ const store = new Vuex.Store({
 
         },
         createRecord(state, record) {
-            const record2: RecordItem = recordListModel.clone(record);
+            const record2: RecordItem = clone(record);
             record2.createdAt = new Date().toISOString();
             state.recordList.push(record2);
             store.commit('saveRecord');

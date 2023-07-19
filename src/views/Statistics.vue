@@ -1,13 +1,21 @@
 <template>
     <div>
         <Layout_>
-            <!--            <Tabs classPrefix="type" :dataSource="typeList" :value.sync="type"/>-->
-            <h1>明细</h1>
-            <Tabs classPrefix="interval" :dataSource="intervalList" :value.sync="interval"/>
+            <p>记账本</p>
+            <!--                        <Tabs classPrefix="interval" :dataSource="typeList" :value.sync="type"/>-->
+
             <div class="main">
                 <ol>
-                    <li v-for="(group,index) in result" :key="index">
-                        <h3 class="title">{{ group.title }}</h3>
+                    <li class="main-li" v-for="(group,index) in groupedList" :key="index">
+                        <h3 class="title">{{ beautify(group.title) }}
+                            <div>
+                                <span>出</span>
+                                <span>{{ group.xtotal }}</span>
+                                <span>入</span>
+                                <span>{{ group.ytotal }}</span>
+                            </div>
+                        </h3>
+                        <!--                        {{group.items}}-->
                         <ol>
                             <li class="record" v-for="item in group.items" :key="item.id">
                                 <div class="record-type" v-for="i in item.tags">
@@ -16,7 +24,7 @@
                                     </svg>
                                     <span>{{ i.name }} </span>
                                 </div>
-                                <div class="record-notes">{{item.notes }}</div>
+                                <div class="record-notes">{{ item.notes }}</div>
                                 <div class="record-amount" :class="{select:item.type==='+'}">
                                     {{ item.type }}
                                     {{ item.amount }}
@@ -31,98 +39,75 @@
         </Layout_>
     </div>
 </template>
-<style lang="scss">
-  .main {
-    height: calc(100vh - 132px);
-    //border: 1px solid red;
 
-    flex-grow: 1;
-    overflow: auto;
-  }
-
-  %item {
-    padding: 0 16px;
-    min-height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    white-space: nowrap
-  }
-
-  .title {
-    background: #f4f4f4;
-    @extend %item
-  }
-
-  .record {
-    border-bottom: 1px solid #e2e2e2;
-    height: 0;
-
-    .record-type {
-
-      display: flex;
-      align-items: center;
-
-      .icon {
-
-        font-size: 32px;
-        margin-right: 8px;
-      }
-
-      span {
-
-      }
-    }
-
-    .record-notes {
-
-      color: #999;
-      margin-right: auto;
-      margin-left: 16px;
-      font-size: 12px;
-      overflow: auto;
-
-    }
-
-    .record-amount {
-      margin-left: 16px;
-    }
-
-
-    @extend %item
-  }
-
-
-</style>
 <script lang="ts">
     import Tabs from '@/components/Tabs.vue';
     import {Component} from 'vue-property-decorator';
     import Vue from 'vue';
     import intervalList from '@/constants/intervalList';
+    import typeList from '@/constants/typeList';
+    import dayjs from 'dayjs';
+    import clone from '@/lib/clone';
+
+    require('dayjs/locale/zh-cn');
 
     @Component({
         components: {Tabs},
 
     })
     export default class Statistics extends Vue {
-        get recordList() {
-            return this.$store.state.recordList;
+        beautify(string: string) {
+            const day = dayjs(string);
+            dayjs.locale('zh-cn'); // 全局使用简体中文
+            const now = dayjs();
+            if (day.isSame(now, 'year')) {
+                return day.format('MM月DD日dddd'); // 使用dddd表示星期几
+            } else {
+                return day.format('YYYY年MM月DD日dddd'); // 使用dddd表示星期几
+
+            }
         }
 
-        get result() {
-            const {recordList} = this;
-            type HashTableValue = { title: string, items: RecordItem[] }
+        get recordList() {
+            return (this.$store.state as RootState).recordList;
+        }
 
-            const hashTable: { [key: string]: HashTableValue } = {};
-            for (let i = 0; i < recordList.length; i++) {
-                const [date, time] = recordList[i].createdAt!.split('T');
-                // console.log(date);
-                // console.log(time);
-                hashTable[date] = hashTable[date] || {title: date, items: []};
-                hashTable[date].items.push(recordList[i]);
-                // console.log(hashTable)
+        get groupedList() {
+            const {recordList} = this;
+            if (recordList.length === 0) {
+                return [];
             }
-            return hashTable;
+
+            const newList = clone(recordList).sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+            type Result = { title: string, xtotal?: number, ytotal?: number, items: RecordItem[] }[]
+            const result: Result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]]}];
+            for (let i = 1; i < newList.length; i++) {
+                const current = newList[i];
+                const last = result[result.length - 1];
+                if (dayjs(last.title).isSame(dayjs(current.createdAt), 'day')) {
+                    last.items.push(current);
+                } else {
+                    result.push({title: dayjs(current.createdAt).format('YYYY-MM-DD'), items: [current]});
+                }
+            }
+
+
+
+            result.map(group => {
+                const total1 = newList.filter(r => r.type === '-');
+                group.xtotal = total1.reduce((sum, item) => {
+                    return sum + item.amount;
+                }, 0);
+            });
+            result.map(group => {
+                const total2 = newList.filter(r => r.type === '+');
+                group.ytotal = total2.reduce((sum, item) => {
+                    return sum + item.amount;
+                }, 0);
+            });
+
+
+            return result;
         }
 
         beforeCreate() {
@@ -130,17 +115,15 @@
         }
 
         // type = '-';
-        interval = 'day';
         // typeList = typeList;
-        intervalList = intervalList;
+        // interval = 'day';
+        // intervalList = intervalList;
     }
 </script>
 
 <style lang="scss" scoped>
 
-
-  ::v-deep
-  .interval-tabs {
+  ::v-deep .interval-tabs {
     height: 30px;
 
     .interval-tabs-ul {
@@ -159,11 +142,111 @@
     }
   }
 
-  h1 {
-    text-align: center;
+  %item {
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap
+  }
+
+  p {
+    background: #f8f8f8;
+    min-height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .main {
+    height: calc(100vh - 120px);
+    flex-grow: 1;
+    overflow: auto;
+
+    .main-li {
+      //margin: 5px 0;
+
+
+      .title {
+        background: #f3f3f3;
+        font-size: 16px;
+        min-height: 20px;
+        padding: 3px 16px;
+
+          span {
+            font-size: 14px;
+            &:nth-child(1),&:nth-child(3) {
+              //border: 1px solid red;
+              color: #999;
+              font-size: 12px;
+              background: #e3e3e3;
+              margin-left: 14px;
+
+            }
+
+            &:nth-child(2),&:nth-child(4) {
+              margin-left: 4px;
+            }
+
+
+
+
+          }
+
+
+        @extend %item
+
+      }
+
+      .record {
+        min-height: 50px;
+
+        height: 0;
+        border-bottom: 1px solid #e2e2e2;
+
+        .record-type {
+
+          display: flex;
+          align-items: center;
+
+          .icon {
+
+            font-size: 32px;
+            margin-right: 8px;
+          }
+
+          span {
+            font-size: 15px;
+          }
+        }
+
+        .record-notes {
+          color: #999;
+          margin-right: auto;
+          margin-left: 16px;
+          font-size: 12px;
+          overflow: auto;
+
+        }
+
+        .record-amount {
+          margin-left: 16px;
+        }
+
+
+        @extend %item
+      }
+
+
+    }
+
   }
 
   .select {
     color: #f3c50c;
   }
+
+
 </style>

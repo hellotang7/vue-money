@@ -40,9 +40,10 @@
 
 <style lang="scss" scoped>
   @import "~@/assets/style/TextColor.scss";
+
   nav {
     display: flex;
-@extend %outerShow;
+    @extend %outerShow;
     //flex-direction: row;
     font-size: 12px;
     //border: 1px solid red;
@@ -55,11 +56,12 @@
       flex-direction: column;
       padding: 2px 0;
 
-      .icon{
+      .icon {
         width: 32px;
         height: 32px;
       }
     }
+
     .x {
       color: #f3c50c;
     }

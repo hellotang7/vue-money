@@ -103,11 +103,13 @@
           flex-direction: row;
 
           .icon {
-            margin-right: 8px;
+
             font-size: 32px;
+            margin-right: 8px;
           }
 
           p {
+            font-size: 15px;
           }
         }
 
