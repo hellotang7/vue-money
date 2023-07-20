@@ -1,14 +1,14 @@
 <template>
     <div>
         <Layout_ classPrefix="layout">
-<!--            {{record}}-->
+            <!--            {{record}}-->
             <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
 
-            <Notes @update:value="onUpdateNotes" fieldName="备注：" placeholder="请输入备注"/>
+            <Notes @update:value="onUpdateNotes" fieldName="备注：" placeholder="请输入备注" :value="record.notes"/>
 
             <Tags :dataSource.sync="tags" @update:value="onUpdateTags"/>
 
-            <Tabs  :dataSource="typeList" :value.sync="record.type"/>
+            <Tabs :dataSource="typeList" :value.sync="record.type"/>
 
         </Layout_>
     </div>
@@ -29,28 +29,23 @@
 
     })
     export default class Money extends Vue {
-        // tags = window.tagList;
-        // tags =   [
-        //     {id:1,img: 'shoping', name: '购物'},
-        //     {id:2,img: 'eat', name: '餐饮'},
-        //     {id:3,img: 'home', name: '居住'},
-        //     {id:4,img: 'bus', name: '交通'},
-        // ];
-
-        typeList=typeList;
+        typeList = typeList;
 
         record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
-        recordList = window.recordList;
+
+        // recordList = window.recordList;
 
         get tags() {
             return this.$store.state.tagList;
         }
-        create(){
-            this.$store.commit('fetchRecord')
-            this.$store.commit('fetchTag')
+
+        create() {
+            this.$store.commit('fetchRecord');
+            this.$store.commit('fetchTag');
 
 
         }
+
 
         onUpdateTags(value: string[]) {
             this.record.tags = value;
@@ -66,9 +61,20 @@
         }
 
         saveRecord() {
-            this.$store.commit('createRecord',this.record)
-        }
+            if (this.record.amount === 0) {
+                return alert('请输入具体金额');
+            }
+            if (!this.record.tags || this.record.tags.length === 0) {
+                return alert('请选标签');
 
+            }
+
+            this.$store.commit('createRecord', this.record);
+            window.alert('已保存');
+            this.$router.push('./detail')
+            this.record.notes = ''
+
+        }
 
 
     };

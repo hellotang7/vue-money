@@ -43,7 +43,7 @@
         selectedTags: string[] = ['shopping'];
 
         tagName!: string;
-        tagImg!: string;
+        // tagImg!: string;
         tag?: { id: string, name: string } = undefined;
 
         imgs = [
@@ -51,11 +51,13 @@
             {img: 'eat'},
             {img: 'home'},
             {img: 'bus'},
+            {img: 'money'},
+            {img: 'edit'},
         ];
 
 
         tagimg(img: string) {
-            this.tagImg = img;
+            // this.tagImg = img;
 
             const index = this.selectedTags.indexOf(img);
             if (index >= 0) {

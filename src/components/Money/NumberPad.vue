@@ -1,6 +1,6 @@
 <template>
     <div class="numberPad">
-        <div class="output">{{ output }}</div>
+        <div class="output"><span>¥</span><span>{{ output }}</span></div>
         <div class="buttons">
             <button @click="inputContent">1</button>
             <button @click="inputContent">2</button>
@@ -67,10 +67,11 @@
         }
 
         ok() {
-            const number = parseFloat(this.output)
-            this.$emit('update:value',number)
-            this.$emit('submit',number)
-            this.output = '0'
+            const number = parseFloat(this.output);
+            this.$emit('update:value', number);
+            this.$emit('submit', number);
+            this.output = '0';
+
 
         }
     }
@@ -86,7 +87,8 @@
       font-size: 36px;
       font-family: Consolas, monospace;
       padding: 9px 16px;
-      text-align: right;
+      display: flex;
+      justify-content: space-between;
       @extend %innerShow
     }
 

@@ -12,7 +12,7 @@
             </li>
             <li @click="newTag">
                 <svg class="icon">
-                    <use xlink:href="#edit"/>
+                    <use xlink:href="#more"/>
                 </svg>
                 <span>编辑</span>
             </li>
@@ -40,6 +40,7 @@
             this.$store.commit('fetchTag')
         }
         toggle(tag: string) {
+
             const index = this.selectedTags.indexOf(tag);
             if (index >= 0) {
                 this.selectedTags.splice(index, 1);
@@ -59,6 +60,9 @@
 </script>
 
 <style lang="scss" scoped>
+  span{
+    font-size: 12px;
+  }
   .tags {
     flex-grow: 1;
     padding: 16px;
@@ -87,7 +91,7 @@
           width: 44px;
           height: 44px;
           border-radius: 10px;
-          margin-bottom: 5px;
+          margin-bottom: 2px;
 
           &.selected {
             background: #ffda47;

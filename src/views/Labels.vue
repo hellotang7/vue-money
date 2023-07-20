@@ -33,7 +33,7 @@
 
 
             </div>
-
+            <Tally/>
         </Layout_>
     </div>
 </template>
@@ -41,11 +41,12 @@
 <script lang="ts">
     import {Component} from 'vue-property-decorator';
     import typeList from '@/constants/typeList';
+    import Tally from '@/components/Tally.vue';
     import Tabs from '@/components/Tabs.vue';
     import Vue from 'vue';
 
     @Component({
-        components: {Tabs},
+        components: {Tabs,Tally},
 
     })
     export default class Labels extends Vue {

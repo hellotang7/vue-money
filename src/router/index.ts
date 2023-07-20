@@ -4,6 +4,7 @@ import Hello from '../components/HelloWorld.vue';
 import Money from '@/views/Money.vue';
 import Labels from '@/views/Labels.vue';
 import Statistics from '@/views/Statistics.vue';
+import Detail from '@/views/Detail.vue';
 import NotFound from '@/views/NotFound.vue';
 import LabelsCreate from '@/views/LabelsCreate.vue';
 
@@ -12,7 +13,10 @@ Vue.use(VueRouter);
 const routes: Array<RouteConfig> = [
     {
         path: '/',
-        redirect:'/money'
+        redirect:'/detail'
+    }, {
+        path: '/detail',
+        component: Detail
     }, {
         path: '/money',
         component: Money
