@@ -9,6 +9,10 @@ import tagListModel from '@/models/tagListModel';
 import recordListModel from '@/models/recordListModel';
 
 
+
+
+
+
 Vue.config.productionTip = false;
 
 Vue.component('Nav_', Nav_);
@@ -37,8 +41,16 @@ window.removeTag = (id: string) => {
 };
 
 
+
+
+
+
+
 new Vue({
     router,
     store,
     render: h => h(App)
 }).$mount('#app');
+
+
+

@@ -16,7 +16,7 @@
                                 <span>{{ group.ytotal }}</span>
                             </div>
                         </h3>
-                        <!--                        {{group.items}}-->
+
                         <ol>
                             <li class="record" v-for="item in group.items" :key="item.id">
                                 <div class="record-type" v-for="i in item.tags">
@@ -35,7 +35,6 @@
                     </li>
 
                 </ol>
-
             </div>
             <h1 v-show="!groupedList.length">暂无相关记账</h1>
 
@@ -81,8 +80,10 @@
             }
 
             const newList = clone(recordList).sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+            // console.log(newList);
             type Result = { title: string, xtotal?: number, ytotal?: number, items: RecordItem[] }[]
             const result: Result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]]}];
+            // console.log(result);
             for (let i = 1; i < newList.length; i++) {
                 const current = newList[i];
                 const last = result[result.length - 1];
@@ -95,13 +96,13 @@
 
 
             result.map(group => {
-                const total1 = newList.filter(r => r.type === '-');
+                const total1 = group.items.filter(r => r.type === '-');
                 group.xtotal = total1.reduce((sum, item) => {
                     return sum + item.amount;
                 }, 0);
             });
             result.map(group => {
-                const total2 = newList.filter(r => r.type === '+');
+                const total2 = group.items.filter(r => r.type === '+');
                 group.ytotal = total2.reduce((sum, item) => {
                     return sum + item.amount;
                 }, 0);
@@ -114,13 +115,6 @@
         beforeCreate() {
             this.$store.commit('fetchRecord');
         }
-
-
-
-        // type = '-';
-        // typeList = typeList;
-        // interval = 'day';
-        // intervalList = intervalList;
     }
 </script>
 
@@ -169,18 +163,18 @@
     align-items: center;
     font-size: 16px;
     font-weight: 600;
+    //border: 2px solid forestgreen;
+
   }
 
 
   .main {
+    //border: 1px solid red;
     height: calc(100vh - 120px);
-    flex-grow: 1;
     overflow: auto;
     position: relative;
 
     .main-li {
-      //margin: 5px 0;
-
 
       .title {
         background: #f3f3f3;

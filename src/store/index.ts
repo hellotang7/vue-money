@@ -38,11 +38,7 @@ const store = new Vuex.Store({
                 store.commit('createTag',{img: 'home', name: '居住'})
                 store.commit('createTag',{img: 'bus', name: '交通'})
                 store.commit('createTag',{img: 'money', name: '通用'})
-            //     state.tagList = [
-            //         {id: 1, img: 'shopping', name: '购物'},
-            //         {id: 2, img: 'eat', name: '餐饮'},
-            //         {id: 3, img: 'home', name: '居住'},
-            //         {id: 4, img: 'bus', name: '交通'},];
+
             }
         },
         createTag(state, payload: { img: string, name: string, }) {
@@ -56,6 +52,7 @@ const store = new Vuex.Store({
             } else {
                 state.tagList.push({id: ID, name: name, img: img});
                 store.commit('saveTag');
+
             }
         },
         saveTag(state) {
