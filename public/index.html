@@ -19,6 +19,27 @@
             window.scrollTo(0, 100)
         }, 0);
     };
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            window.scrollTo(0, document.body.scrollHeight);
+        }, 0);
+    });
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            window.scrollTo(0, document.body.clientHeight);
+        }, 0);
+    });
+    window.onload = function() {
+        scroll();
+    }
+
+    function scroll() {
+        if(document.documentElement.scrollHeight <= document.documentElement.clientHeight) {
+            bodyTag = document.getElementsByTagName('body')[0];
+            bodyTag.style.height = document.documentElement.clientWidth / screen.width * screen.height + 'px';
+        }
+    }
+
     </script>
 
 </head>
