@@ -1,7 +1,7 @@
 <template>
     <div>
         <Layout_>
-            <Tabs  :dataSource="typeList" :value.sync="type"/>
+            <p class="tagType" >标签管理</p>
 
 
             <div class="tags">
@@ -75,6 +75,17 @@
 </script>
 <style lang="scss" scoped>
 
+  .tagType {
+    background: #f8f8f8;
+    min-height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+
+  }
+
 
   .tags {
     height: calc(100vh - 120px);
@@ -85,7 +96,6 @@
     position: relative;
 
     ol {
-      //border: 1px solid red;
       flex-grow: 1;
 
 

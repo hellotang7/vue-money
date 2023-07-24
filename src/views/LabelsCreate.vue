@@ -24,7 +24,7 @@
 
             </ul>
         </div>
-        <div class="x" @click="addTag">
+        <div class="addTag" @click="addTag">
             <button>确定</button>
         </div>
     </Layout_>
@@ -155,7 +155,7 @@
 
   }
 
-  .x {
+  .addTag {
     height: 30%;
     display: flex;
     justify-content: center;

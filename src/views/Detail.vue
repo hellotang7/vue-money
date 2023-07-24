@@ -3,8 +3,6 @@
         <Layout_>
             <p>账本</p>
             <Tally/>
-            <!--                        <Tabs classPrefix="interval" :dataSource="typeList" :value.sync="type"/>-->
-
             <div class="main" v-show="groupedList.length >0">
                 <ol>
                     <li class="main-li" v-for="(group,index) in groupedList" :key="index">
@@ -163,13 +161,11 @@
     align-items: center;
     font-size: 16px;
     font-weight: 600;
-    //border: 2px solid forestgreen;
 
   }
 
 
   .main {
-    //border: 1px solid red;
     height: calc(100vh - 120px);
     overflow: auto;
     position: relative;

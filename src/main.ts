@@ -41,9 +41,22 @@ window.removeTag = (id: string) => {
 };
 
 
-
-
-
+// window.onload = function() {
+//     setTimeout(function() {
+//         window.scrollTo(0, 1)
+//     }, 0);
+// };
+//
+// window.onload = function() {
+//     scroll();
+// }
+//
+// function scroll() {
+//     if(document.documentElement.scrollHeight <= document.documentElement.clientHeight) {
+//         bodyTag = document.getElementsByTagName('body')[0];
+//         bodyTag.style.height = document.documentElement.clientWidth / screen.width * screen.height + 'px';
+//     }
+// }
 
 
 new Vue({

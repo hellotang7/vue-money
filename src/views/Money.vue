@@ -1,7 +1,6 @@
 <template>
     <div>
         <Layout_ classPrefix="layout">
-            <!--            {{record}}-->
             <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
 
             <Notes @update:value="onUpdateNotes" fieldName="备注：" placeholder="请输入备注" :value="record.notes"/>
@@ -33,7 +32,6 @@
 
         record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
 
-        // recordList = window.recordList;
 
         get tags() {
             return this.$store.state.tagList;
@@ -47,7 +45,7 @@
         }
 
 
-        onUpdateTags(value: string[]) {
+        onUpdateTags(value: Tag[]) {
             this.record.tags = value;
         }
 
@@ -88,7 +86,4 @@
 
 </style>
 
-<style lang="scss" scoped>
 
-
-</style>

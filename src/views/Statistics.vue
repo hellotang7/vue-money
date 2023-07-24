@@ -3,25 +3,21 @@
         <Layout_>
             <Tally/>
             <Tabs :dataSource="typeList" :value.sync="type"/>
-            <div class="xxx" v-for="(group, index) in groupedList" :key="index">
+            <div v-show="recordList.length" class="xxx" v-for="(group, index) in groupedList" :key="index">
                 <div class="zc">
                     <span v-show="type === '-'">共支出￥{{ group.total }}</span>
                     <span v-show="type === '+'">共收入￥{{ group.total }}</span>
                 </div>
-<!--{{group.name}}{{group.value}}-->
-                {{echartsName}}{{echartsValue}}
-
-                <div id="main" class="echarts" @click="x(group)"></div>
-
+                <div id="main" class="echarts" ></div>
             </div>
-
+            <h1 v-show="!recordList.length">暂无相关统计</h1>
         </Layout_>
     </div>
 </template>
 
 <script lang="ts">
-    import {Component} from 'vue-property-decorator';
-    import Vue from 'vue';
+    import {Component, Watch} from 'vue-property-decorator';
+    import Vue, {watch} from 'vue';
     import typeList from '@/constants/typeList';
     import Tabs from '@/components/Tabs.vue';
     import Tally from '@/components/Tally.vue';
@@ -39,24 +35,42 @@
         typeList = typeList;
         type = '-';
 
-        echartsValue: any = [];
-        echartsName: any = [];
+        @Watch('type')
+        watch() {
+            this.ech();
+        }
 
         private mounted(): void {
 
             this.ech();
-            // this.ech2();
         };
+
 
         private ech(): void {
             //@ts-ignore
-            let myChart = echarts.init(document.getElementById('main'));
+            let myChart = echarts.init(window.document.getElementById('main'));
+
+            const newList = clone(this.recordList).filter(r => r.type === this.type);
+            const echart = newList.map(
+                r=>({
+                    value:r.amount,
+                    name:r.tags[0].name
+                })
+            )
+
+            const result = Object.values(echart.reduce((acc: { [key: string]: any }, cur: { name: string, value: number }) => {
+                if (!acc[cur.name]) {
+                    acc[cur.name] = { name: cur.name, value: 0 };
+                }
+                acc[cur.name].value += cur.value;
+                return acc;
+            }, {}));
 
 
 
-            myChart.setOption({
+            myChart.setOption!({
                 title: {
-                    text: '支出构成',
+                    text: '种类构成',
                     left: '4%',
                     textStyle: {
                         fontSize: 17,
@@ -64,25 +78,18 @@
                         color: '#111'
                     },
                 },
-
                 tooltip: {
-                    trigger: 'item',
-
+                    trigger: 'item'
                 },
-
                 series: [
                     {
-                        name: 'Access From',
                         type: 'pie',
                         radius: ['30%', '50%'],
                         itemStyle: {
                             borderColor: '#fff',
                             borderWidth: 2
                         },
-                        data: [
-                            { value: 11, name: 11},
-
-                        ],
+                        data: result,
                         emphasis: {
                             itemStyle: {
                                 shadowBlur: 10,
@@ -108,29 +115,11 @@
             }
 
             const newList = clone(recordList).filter(r => r.type === this.type);
-            type Result = {  total?: number, name?: any,value?: any, items: RecordItem[] }[]
+            type Result = {  total?: number, items: RecordItem[] }[]
             const result: Result = [{ items: newList}];
 
 
             result.map(group => {
-
-
-                const names = [];
-                const x = group.items.map(i => i.tags);
-                for (let i = 0; i < x.length; i++) {
-                    const tags = (x[i][0]);
-                    const name = Object.values(tags)[1];
-                    names.push(name);
-                }
-
-                //获取到names和value
-                this.echartsName = names
-                this.echartsValue = group.items.map(i => i.amount);
-
-                // group.name = names
-                // group.value = group.items.map(i => i.amount);
-
-
                 group.total = group.items.reduce((sum, item) => {
                     return sum + item.amount;
                 }, 0);
@@ -148,7 +137,12 @@
 </script>
 
 <style lang="scss" scoped>
+  h1 {
+    text-align: center;
+    margin-top: 200px;
+    color: #999;
 
+  }
 
   .zc {
     //background: #f8f8f8;
