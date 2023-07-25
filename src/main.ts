@@ -18,45 +18,8 @@ Vue.config.productionTip = false;
 Vue.component('Nav_', Nav_);
 Vue.component('Layout_', Layout_);
 
-//record store
-window.recordList = recordListModel.fetch();
-window.createRecord = (record: RecordItem) => {
-    recordListModel.create(record);
-};
-
-//tag store
-// window.tagList = tagListModel.fetch();
-window.createTag = (name: string) => {
-    const msg = tagListModel.create(name);
-    if (msg === 'duplicated') {
-        alert('标签名重复了');
-    } else if (msg === 'success') {
-        alert('创建成功');
-        router.back();
-    }
-};
-window.removeTag = (id: string) => {
-    return tagListModel.remove(id);
-
-};
 
 
-// window.onload = function() {
-//     setTimeout(function() {
-//         window.scrollTo(0, 1)
-//     }, 0);
-// };
-//
-// window.onload = function() {
-//     scroll();
-// }
-//
-// function scroll() {
-//     if(document.documentElement.scrollHeight <= document.documentElement.clientHeight) {
-//         bodyTag = document.getElementsByTagName('body')[0];
-//         bodyTag.style.height = document.documentElement.clientWidth / screen.width * screen.height + 'px';
-//     }
-// }
 
 
 new Vue({
@@ -67,3 +30,20 @@ new Vue({
 
 
 
+if (document.documentElement.clientWidth > 500){
+    window.alert('请使用手机打开本页面，以保证浏览效果')
+    const img = document.createElement('img')
+    img.src = '/srcimg.png'
+    img.style.position = 'fixed'
+    img.style.left = '50%'
+    img.style.top = '50%'
+    img.style.transform = 'translate(-50%,-50%)'
+    img.style.boxShadow = '0 0 10px rgba(0,0,0,0.25)'
+    document.body.appendChild(img)
+
+    window.onclick = function(event) {
+        if (event.target !== img) {
+            img.style.display = "none";
+        }
+    }
+}
